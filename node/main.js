@@ -1,6 +1,7 @@
 import fs from "fs"
 import { parseFile } from "music-metadata"
-import { inspect } from 'util';
+import { PNG } from "pngjs"
+import sharp from "sharp"
 
 const PATH = "./foo_now_playing.json";
 
@@ -46,14 +47,42 @@ function updateNowPlaying(){
 }
 
 
-function saveCover(parsedAudioFile){
+async function saveCover(parsedAudioFile){
+    var format = (parsedAudioFile.common.picture[0].format).replace("image/", "")
+    if(format != "png"){
+        parsedAudioFile.common.picture[0].data = await sharp(parsedAudioFile.common.picture[0].data).toFormat("png").toBuffer() 
+    }
     fs.writeFile(OUTPUT_PATH, parsedAudioFile.common.picture[0].data, function (err) {
         if (err) {
             return console.log(err);
         }
         console.log("The file was saved!");
+        commonColor(parsedAudioFile.common.picture[0].data)
     });
-    console.log("Finished")
+}
+
+function commonColor(rawPNG){
+    console.log(rawPNG.length)
+    var albumCover = new PNG.sync.read(rawPNG);
+    var data = albumCover.data;
+    var count = 0;
+    let color = {
+        r: 0,
+        g: 0,
+        b: 0,
+    }
+    
+    for (let i = 0; i < data.length; i += 4) {
+        count++;
+        color.r += data[i];
+        color.g += data[i + 1];
+        color.b += data[i + 2];
+      }
+    color.r = Math.floor(color.r / count)
+    color.g = Math.floor(color.g / count)
+    color.b = Math.floor(color.b / count)
+
+    console.log(color)
 }
 
 async function main() {
