@@ -41,8 +41,12 @@ function updateNowPlaying(){
             return
         }
     
-        nowPlaying = JSON.parse(data.replace(/^\uFEFF/, '')).nowplaying
-        console.log(nowPlaying)
+        var rawData = JSON.parse(data.replace(/^\uFEFF/, ''))
+        try{
+            nowPlaying = rawData.nowplaying;
+        } catch {
+            console.log("No data")
+        }
     })
 }
 
@@ -83,6 +87,12 @@ function commonColor(rawPNG){
     color.b = Math.floor(color.b / count)
 
     console.log(color)
+    fs.writeFile("./color.json", JSON.stringify(color), function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    });
 }
 
 async function main() {
