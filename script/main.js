@@ -4,6 +4,15 @@ class RGB {
         this.g = g;
         this.b = b;
     }
+    getRGB() {
+        return `rgb(${this.r}, ${this.g}, ${this.b})`;
+    }
+    getRGBA(a) {
+        return `rgba(${this.r}, ${this.g}, ${this.b}, ${a})`;
+    }
+    inverse(){
+        return new RGB(255 - this.r, 255 - this.g, 255 - this.b);
+    }
 }
 class NowPlaying {
 
@@ -46,7 +55,8 @@ class NowPlaying {
         outline.values.album.innerHTML = this.album;
         outline.cover.src = "cover.png";
         outline.progress.style.width = this.elapsed / this.length * 100 + "%";
-        outline.container.style.backgroundColor = `rgba(${this.rgb.r}, ${this.rgb.g}, ${this.rgb.b}, 0.5)`;
+        outline.container.style.backgroundColor = this.rgb.getRGBA(0.5);
+        outline.progress.style.backgroundColor = this.rgb.inverse().getRGB();
     }
 }
 
