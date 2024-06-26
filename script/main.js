@@ -19,6 +19,15 @@ class NowPlaying {
         let json = await response.json();
         this.setNowPlaying(json.nowplaying);
     }
+
+    async updateNowPlaying(){
+        await this.fetchNowPlaying();
+        outline.values.title.innerHTML = this.title;
+        outline.values.artist.innerHTML = this.artist;
+        outline.values.album.innerHTML = this.album;
+        outline.cover.src = "cover.png";
+        outline.progress.style.width = this.elapsed / this.length * 100 + "%";
+    }
 }
 
 /**
@@ -59,12 +68,6 @@ async function wait(ms) {
 }
 
 function update(){
-    nowPlaying.fetchNowPlaying().then(function(){
-        outline.values.title.innerHTML = nowPlaying.title;
-        outline.values.artist.innerHTML = nowPlaying.artist;
-        outline.values.album.innerHTML = nowPlaying.album;
-        outline.cover.src = "cover.png?" + new Date().getTime();
-        outline.progress.style.width = nowPlaying.elapsed / nowPlaying.length * 100 + "%";
-    });
+    nowPlaying.updateNowPlaying();
     wait(1000).then(update);
 }
