@@ -93,9 +93,3 @@ function update(){
     nowPlaying.updateNowPlaying();
     wait(1000).then(update);
 }
-
-
-
-function getRGB(){
-
-}
