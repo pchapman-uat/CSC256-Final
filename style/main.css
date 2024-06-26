@@ -1,4 +1,4 @@
-.cover {
+#cover {
     height: 100px;
 }
 .artText {
@@ -16,7 +16,7 @@
     height: 20px;
     background-color: blue;
 }
-.progress{
+#progress{
     background-color: green;
     height: 20px;
     width: 10%;
