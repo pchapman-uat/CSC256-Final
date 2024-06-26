@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.ignoreFiles": [
+        "foo_now_playing.json",
+        "color.json",
+        "cover.png"
+    ],
+}
