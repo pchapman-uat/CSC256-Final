@@ -2,8 +2,6 @@
     height: 100px;
 }
 .artText {
-    margin-left: 50px;
-    margin-right: 50px;
     display: flex;
     justify-content: space-between;
 }
@@ -14,10 +12,8 @@
 }
 
 .progressBar{
-    height: 20px;
-    background-color: blue;
-    margin-left: 3%;
-    margin-right: 3%;
+    height: 15px;
+    background-color: rgba(255,255,255,0.3);
     border-radius: 50px;
 }
 #progress{
@@ -30,4 +26,6 @@
 #container{
     padding: 1%;
     border-radius: 50px;
+    padding-right: 10%;
+    padding-left: 10%;
 }
