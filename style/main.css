@@ -1,3 +1,23 @@
-body {
+.cover {
+    height: 100px;
+}
+.artText {
+    display: flex;
+    justify-content: space-between;
     background-color: red;
+}
+.coverContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.progressBar{
+    height: 20px;
+    background-color: blue;
+}
+.progress{
+    background-color: green;
+    height: 20px;
+    width: 10%;
 }
