@@ -1,8 +1,7 @@
 import fs from "fs"
 import { parseFile } from "music-metadata"
-import { PNG } from "pngjs"
 import sharp from "sharp"
-
+import ColorTheif from "colorthief"
 const PATH = "./foo_now_playing.json";
 
 const OUTPUT_PATH = "./cover.png";
@@ -57,40 +56,32 @@ async function saveCover(parsedAudioFile){
             return console.log(err);
         }
         console.log("The file was saved!");
-        commonColor(parsedAudioFile.common.picture[0].data)
     });
 }
 
-function commonColor(rawPNG){
-    console.log(rawPNG.length)
-    var albumCover = new PNG.sync.read(rawPNG);
-    var data = albumCover.data;
-    var count = 0;
-    let color = {
-        r: 0,
-        g: 0,
-        b: 0,
+async function getCommonColorV2(){
+    let color;
+    await sleep(250);
+    try{
+        color = await ColorTheif.getColor(OUTPUT_PATH);
+    } catch {
+        console.log("Error getting color")
+        return;
     }
-    
-    for (let i = 0; i < data.length; i += 4) {
-        count++;
-        color.r += data[i];
-        color.g += data[i + 1];
-        color.b += data[i + 2];
-      }
-    color.r = Math.floor(color.r / count)
-    color.g = Math.floor(color.g / count)
-    color.b = Math.floor(color.b / count)
 
-    console.log(color)
-    fs.writeFile("./color.json", JSON.stringify(color), function (err) {
+    let rgb = {
+        r: color[0],
+        g: color[1],
+        b: color[2]
+    }
+    console.log(rgb)
+    fs.writeFile("./color.json", JSON.stringify(rgb), function (err) {
         if (err) {
             return console.log(err);
         }
         console.log("The file was saved!");
     });
 }
-
 async function main() {
     if(!fs.existsSync(PATH)){
         console.error("No JSON file found")
@@ -111,7 +102,8 @@ async function main() {
         if(nowPlaying.title == lastPLaying.title){
     
         } else {
-            saveCover(await parseFile(nowPlaying.path))
+            await saveCover(await parseFile(nowPlaying.path))
+            await getCommonColorV2()
         }
         lastPLaying = nowPlaying
     }

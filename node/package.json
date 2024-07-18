@@ -1,8 +1,14 @@
 {
-    "type": "module",
-    "dependencies": {
-        "music-metadata": "^8.3.0",
-        "pngjs": "^7.0.0",
-        "sharp": "^0.33.4"
-    }
+  "name": "csc256-final-node",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colorthief": "^2.4.0",
+    "music-metadata": "^9.0.3",
+    "sharp": "^0.33.4"
+  }
 }
