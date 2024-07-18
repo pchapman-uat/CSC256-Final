@@ -13,6 +13,23 @@ class RGB {
     inverse(){
         return new RGB(255 - this.r, 255 - this.g, 255 - this.b);
     }
+    setWithTreshold(amnt){
+        this.r = this.r < amnt ? this.r + amnt : this.r - amnt;
+        this.g = this.g < amnt ? this.g + amnt : this.g - amnt;
+        this.b = this.b < amnt ? this.b + amnt : this.b - amnt;
+    }
+    clone(old){
+        this.r = old.r;
+        this.g = old.g;
+        this.b = old.b;
+        return this;
+    }
+    get radialGradient(){
+        let color2 = new RGB().clone(this);
+        color2.setWithTreshold(25);
+
+        return `radial-gradient(${this.getRGBA(0.5)}, ${color2.getRGBA(0.5)})`;
+    }
 }
 class NowPlaying {
 
@@ -61,7 +78,7 @@ class NowPlaying {
         outline.values.album.innerHTML = this.album;
         outline.cover.src = "cover.png?"+this.elapsed;
         outline.progress.style.width = this.elapsed / this.length * 100 + "%";
-        outline.container.style.backgroundColor = this.rgb.getRGBA(0.5);
+        outline.container.style.backgroundImage = this.rgb.radialGradient;
         outline.progress.style.backgroundColor = this.rgb.inverse().getRGB();
         outline.values.checkForScroll();
     }
