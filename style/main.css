@@ -48,6 +48,14 @@ body {
 .scroll {
     animation: scroll 10s linear infinite;
 }
+
+#title {
+    font-size: larger;
+}
+
+#album {
+    font-size: small;
+}
 @keyframes scroll {
     0% {
       transform: translateX(100%);
