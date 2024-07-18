@@ -59,7 +59,7 @@ class NowPlaying {
         outline.values.title.innerHTML = this.title;
         outline.values.artist.innerHTML = this.artist;
         outline.values.album.innerHTML = this.album;
-        outline.cover.src = "cover.png?"+this.title;
+        outline.cover.src = "cover.png?"+this.elapsed;
         outline.progress.style.width = this.elapsed / this.length * 100 + "%";
         outline.container.style.backgroundColor = this.rgb.getRGBA(0.5);
         outline.progress.style.backgroundColor = this.rgb.inverse().getRGB();
