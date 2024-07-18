@@ -36,7 +36,12 @@ class NowPlaying {
 
     async fetchJSON(path){
         let response = await fetch(path);
-        return await response.json();
+        try{
+            return await response.json();
+        }catch(e){
+            console.log(e);
+            return null;
+        }
     }
     async setRGB(){
         let json = await this.fetchJSON("color.json");
@@ -44,6 +49,7 @@ class NowPlaying {
     }
     async fetchNowPlaying(){
         let json = await this.fetchJSON(this.jsonPath);
+        if(json == null) return;
         this.setNowPlaying(json.nowplaying);
     }
 
@@ -53,7 +59,7 @@ class NowPlaying {
         outline.values.title.innerHTML = this.title;
         outline.values.artist.innerHTML = this.artist;
         outline.values.album.innerHTML = this.album;
-        outline.cover.src = "cover.png";
+        outline.cover.src = "cover.png?"+this.title;
         outline.progress.style.width = this.elapsed / this.length * 100 + "%";
         outline.container.style.backgroundColor = this.rgb.getRGBA(0.5);
         outline.progress.style.backgroundColor = this.rgb.inverse().getRGB();
