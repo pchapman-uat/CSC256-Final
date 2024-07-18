@@ -29,3 +29,24 @@
     padding-right: 10%;
     padding-left: 10%;
 }
+.data {
+    width: 100%;
+    margin-right: 1%;
+    overflow: hidden;
+}
+#title {
+    width:fit-content;
+    background-color: red;
+}
+
+.scroll {
+    animation: scroll 10s linear infinite;
+}
+@keyframes scroll {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }

@@ -57,6 +57,7 @@ class NowPlaying {
         outline.progress.style.width = this.elapsed / this.length * 100 + "%";
         outline.container.style.backgroundColor = this.rgb.getRGBA(0.5);
         outline.progress.style.backgroundColor = this.rgb.inverse().getRGB();
+        outline.values.checkForScroll();
     }
 }
 
@@ -73,23 +74,46 @@ class NowPlaying {
 /**
  * @type {Outline}
  */
+
+class Values {
+    setValues(){
+        this.title = document.getElementById('title');
+        this.artist = document.getElementById('artist');
+        this.album = document.getElementById('album');
+    }
+    checkForScroll(){
+        if(this.title.offsetWidth > this.title.parentElement.offsetWidth){
+            this.title.classList.add('scroll');
+        }
+        if(this.artist.offsetWidth > this.artist.parentElement.offsetWidth){
+            this.artist.classList.add('scroll');
+        }
+        if(this.album.offsetWidth > this.album.parentElement.offsetWidth){
+            this.album.classList.add('scroll');
+        }
+    }
+}
+class Outline {
+    setOutline(){
+        this.values = new Values();
+        this.values.setValues();
+        this.cover = document.getElementById('cover');
+        this.progress = document.getElementById('progress');
+        this.container = document.getElementById('container');
+    }
+}
 var outline;
 
 /**
  * @type {NowPlaying}
  */
+
+
+
 var nowPlaying = new NowPlaying();
 document.addEventListener('DOMContentLoaded', async function() {
-    outline = {
-        values: {
-            title: document.getElementById('title'),
-            artist: document.getElementById('artist'),
-            album: document.getElementById('album'),
-        },
-        cover: document.getElementById('cover'),
-        progress: document.getElementById('progress'),
-        container: document.getElementById('container'),
-    }
+    outline = new Outline();
+    outline.setOutline()
     await nowPlaying.fetchNowPlaying();
     console.log(nowPlaying)
     update();
