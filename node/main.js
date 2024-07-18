@@ -6,6 +6,7 @@ import sharp from "sharp"
 const PATH = "./foo_now_playing.json";
 
 const OUTPUT_PATH = "./cover.png";
+
 var lastPLaying = {
         playing: 0,
         paused: 0,
@@ -34,20 +35,15 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function updateNowPlaying(){
-    fs.readFile(PATH, 'utf8', async (err, data) => {
-        if (err) {
-            console.error(err)
-            return
-        }
-    
-        var rawData = JSON.parse(data.replace(/^\uFEFF/, ''))
-        try{
-            nowPlaying = rawData.nowplaying;
-        } catch {
-            console.log("No data")
-        }
-    })
+async function updateNowPlaying(){
+    try {
+        const data = await fs.promises.readFile(PATH, 'utf8');
+        var rawData = JSON.parse(data.replace(/^\uFEFF/, ''));
+        nowPlaying = rawData.nowplaying;
+    } catch (err) {
+        console.error("Error parsing now playing data:", err);
+        nowPlaying = null;
+    }
 }
 
 
@@ -96,9 +92,18 @@ function commonColor(rawPNG){
 }
 
 async function main() {
+    if(!fs.existsSync(PATH)){
+        console.log("No JSON file found")
+        return;
+    }
+    await updateNowPlaying();
+    if(nowPlaying.playing == 0){
+        console.log("No song playing")
+        return;
+    }
     while(true){
         await sleep(1000);
-        updateNowPlaying()
+        await updateNowPlaying()
         if(nowPlaying.title == lastPLaying.title){
     
         } else {
