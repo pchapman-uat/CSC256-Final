@@ -84,12 +84,18 @@ class Values {
     checkForScroll(){
         if(this.title.offsetWidth > this.title.parentElement.offsetWidth){
             this.title.classList.add('scroll');
+        } else {
+            this.title.classList.remove('scroll');
         }
         if(this.artist.offsetWidth > this.artist.parentElement.offsetWidth){
             this.artist.classList.add('scroll');
+        } else {
+            this.artist.classList.remove('scroll');
         }
         if(this.album.offsetWidth > this.album.parentElement.offsetWidth){
             this.album.classList.add('scroll');
+        } else {
+            this.album.classList.remove('scroll');
         }
     }
 }

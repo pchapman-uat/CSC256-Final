@@ -39,6 +39,7 @@ body {
 }
 #title {
     width:fit-content;
+    text-wrap: nowrap;
 }
 
 .scroll {
