@@ -93,10 +93,14 @@ function commonColor(rawPNG){
 
 async function main() {
     if(!fs.existsSync(PATH)){
-        console.log("No JSON file found")
+        console.error("No JSON file found")
         return;
     }
     await updateNowPlaying();
+    if(nowPlaying == null){
+        console.error("Invalid JSON format")
+        return;
+    }
     if(nowPlaying.playing == 0){
         console.log("No song playing")
         return;
