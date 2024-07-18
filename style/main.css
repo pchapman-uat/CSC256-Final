@@ -40,7 +40,7 @@ body {
     margin-right: 1%;
     overflow: hidden;
 }
-#title {
+.data > p {
     width:fit-content;
     text-wrap: nowrap;
 }
