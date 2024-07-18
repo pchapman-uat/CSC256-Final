@@ -61,19 +61,6 @@ class NowPlaying {
     }
 }
 
-/**
- * @typedef {Object} Outline
- * @property {Object} values - An object containing elements for various track details.
- * @property {HTMLElement} values.title - The HTML element for the track title.
- * @property {HTMLElement} values.artist - The HTML element for the track artist.
- * @property {HTMLElement} values.album - The HTML element for the track album.
- * @property {HTMLImageElement} cover - The HTML image element for the album cover.
- * @property {HTMLElement} progress - The HTML element for the progress bar.
- * @property {HTMLElement} container - The HTML element for the progress bar.
- */
-/**
- * @type {Outline}
- */
 
 class Values {
     setValues(){
@@ -99,6 +86,19 @@ class Values {
         }
     }
 }
+/**
+ * @typedef {Object} Outline
+ * @property {Object} values - An object containing elements for various track details.
+ * @property {HTMLElement} values.title - The HTML element for the track title.
+ * @property {HTMLElement} values.artist - The HTML element for the track artist.
+ * @property {HTMLElement} values.album - The HTML element for the track album.
+ * @property {HTMLImageElement} cover - The HTML image element for the album cover.
+ * @property {HTMLElement} progress - The HTML element for the progress bar.
+ * @property {HTMLElement} container - The HTML element for the progress bar.
+ */
+/**
+ * @type {Outline}
+ */
 class Outline {
     setOutline(){
         this.values = new Values();
@@ -108,6 +108,9 @@ class Outline {
         this.container = document.getElementById('container');
     }
 }
+/**
+ * @type {Outline}
+ */
 var outline;
 
 /**
