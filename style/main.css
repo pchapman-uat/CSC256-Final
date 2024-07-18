@@ -43,6 +43,7 @@ body {
 .data > p {
     width:fit-content;
     text-wrap: nowrap;
+    text-shadow: 1px 1px rgba(0,0,0,0.1);
 }
 
 .scroll {
