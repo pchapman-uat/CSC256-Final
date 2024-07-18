@@ -102,7 +102,13 @@ async function main() {
         if(nowPlaying.title == lastPLaying.title){
     
         } else {
-            await saveCover(await parseFile(nowPlaying.path))
+            let file;
+            try{
+                file = await parseFile(nowPlaying.path)
+            } catch {
+                file = null;
+            }
+            if(file != null)  await saveCover()
             await getCommonColorV2()
         }
         lastPLaying = nowPlaying
