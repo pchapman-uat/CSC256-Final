@@ -6,6 +6,18 @@ const PATH = "./foo_now_playing.json";
 
 const OUTPUT_PATH = "./cover.png";
 
+const COLORS = {
+    Green:  "\x1b[32m",
+    Black: "\x1b[30m",
+    Red: "\x1b[31m",
+    Green: "\x1b[32m",
+    Yellow: "\x1b[33m",
+    Blue: "\x1b[34m",
+    Magenta: "\x1b[35m",
+    Cyan: "\x1b[36m",
+    White: "\x1b[37m",
+    Gray: "\x1b[90m"
+}
 var lastPLaying = {
         playing: 0,
         paused: 0,
@@ -18,6 +30,8 @@ var lastPLaying = {
         elapsed: 0,
         path: ""
     }
+
+const exitTime = 3000;
 var nowPlaying = {
         playing: 0,
         paused: 0,
@@ -40,8 +54,8 @@ async function updateNowPlaying(){
         var rawData = JSON.parse(data.replace(/^\uFEFF/, ''));
         nowPlaying = rawData.nowplaying;
     } catch (err) {
-        console.error("Error parsing now playing data:", err);
         nowPlaying = null;
+        return err;
     }
 }
 
@@ -55,7 +69,7 @@ async function saveCover(parsedAudioFile){
         if (err) {
             return console.log(err);
         }
-        console.log("The file was saved!");
+        console.log(COLORS.Green+"Image file has been saved");
     });
 }
 
@@ -79,27 +93,34 @@ async function getCommonColorV2(){
         if (err) {
             return console.log(err);
         }
-        console.log("The file was saved!");
+        console.log(COLORS.Green + "Color JSON has been saved")
     });
 }
 async function main() {
     if(!fs.existsSync(PATH)){
-        console.error("No JSON file found")
-        return;
+        console.log(COLORS.Red+"No JSON file found")
+        console.log(COLORS.Yellow+`Please make sure you have a JSON file named ${PATH.replace("./","")} in the root of the parent directory of this project`)
+        console.log(COLORS.Red+`Exiting Application in ${exitTime/1000}s`);
+        await sleep(exitTime)
+        process.exit(1)
     }
-    await updateNowPlaying();
+    let error = await updateNowPlaying();
     if(nowPlaying == null){
-        console.error("Invalid JSON format")
-        return;
+        console.log(COLORS.Red+"Invalid JSON format");
+        console.log(COLORS.Yellow+`Please make sure the JSON file is valid based on the read me template`);
+        console.log(COLORS.Yellow+"Please check that Foobar2000 is running")
+        console.log(`${error}`)
+        console.log(COLORS.Red+`Exiting Application in ${exitTime/1000}s`);
+        await sleep(exitTime)
+        process.exit(1);
     }
     if(nowPlaying.playing == 0){
         console.log("No song playing")
-        return;
     }
     while(true){
         await sleep(1000);
         await updateNowPlaying()
-        if(nowPlaying.title == lastPLaying.title){
+        if(nowPlaying.title == lastPLaying.title || nowPlaying.playing == 0){
     
         } else {
             let file;
