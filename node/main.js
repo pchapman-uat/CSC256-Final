@@ -108,7 +108,7 @@ async function main() {
             } catch {
                 file = null;
             }
-            if(file != null)  await saveCover()
+            if(file != null)  await saveCover(file)
             await getCommonColorV2()
         }
         lastPLaying = nowPlaying
