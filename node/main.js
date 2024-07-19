@@ -2,6 +2,7 @@ import fs from "fs"
 import { parseFile } from "music-metadata"
 import sharp from "sharp"
 import ColorTheif from "colorthief"
+import NowPlaying from "../classes/NowPlaying.js";
 
 /**
  * File path of the now playing JSON file (default: "./foo_now_playing.json").
@@ -37,33 +38,11 @@ const exitTime = 3000;
 /**
  * Object of the last playing track
  */
-var lastPLaying =  {
-        playing: 0,
-        paused: 0,
-        albumartist: "",
-        album: "",
-        artist: "",
-        title: "",
-        tracknumber: 0,
-        length: 0,
-        elapsed: 0,
-        path: ""
-    }
+const lastPLaying =  new NowPlaying();
 /**
  * Object of the current playing track
  */
-var nowPlaying =  {
-        playing: 0,
-        paused: 0,
-        albumartist: "",
-        album: "",
-        artist: "",
-        title: "",
-        tracknumber: 0,
-        length: 0,
-        elapsed: 0,
-        path: ""
-    }
+const nowPlaying =  new NowPlaying();
 /**
  * Wait for a specified amount of time.
  * @param {Number} ms - Miliseconds to wait
@@ -71,22 +50,6 @@ var nowPlaying =  {
  */
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/**
- * Update the now playing based on the JSON file.
- * @returns {Promise<?Error>} - If there is an error return it, else return null;
- */
-async function updateNowPlaying(){
-    try {
-        const data = await fs.promises.readFile(PATH, 'utf8');
-        var rawData = JSON.parse(data.replace(/^\uFEFF/, ''));
-        nowPlaying = rawData.nowplaying;
-        return null;
-    } catch (err) {
-        nowPlaying = null;
-        return err;
-    }
 }
 
 
@@ -146,7 +109,7 @@ async function getCommonColorV2(){
  * - Exists under the following conditions
  * - The JSON file is not found
  * - The JSON file is not valid JSON
- * @see {@link updateNowPlaying} - update the now player object
+ * @see {@link NowPlaying.updateFromJSON} - update the now player object
  * @see {@link sleep} - Sleep for a specific amount of time
  * @see {@link getCommonColorV2} - Get the common color from the saved image file
  * @see {@link https://www.npmjs.com/package/music-metadata} - Library used to parse audio files
@@ -159,8 +122,9 @@ async function main() {
         await sleep(exitTime)
         process.exit(1)
     }
-    let error = await updateNowPlaying();
-    if(nowPlaying == null){
+    let error = await nowPlaying.updateFromJSON(PATH);
+    console.log(nowPlaying)
+    if(error){
         console.log(COLORS.Red+"Invalid JSON format");
         console.log(COLORS.Yellow+`Please make sure the JSON file is valid based on the read me template`);
         console.log(COLORS.Yellow+"Please check that Foobar2000 is running")
@@ -174,10 +138,11 @@ async function main() {
     }
     while(true){
         await sleep(1000);
-        await updateNowPlaying()
+        await nowPlaying.updateFromJSON(PATH)
         if(nowPlaying.title == lastPLaying.title || nowPlaying.playing == 0){
     
         } else {
+            console.log("New song playing")
             let file;
             try{
                 file = await parseFile(nowPlaying.path)
@@ -187,7 +152,7 @@ async function main() {
             if(file != null)  await saveCover(file)
             await getCommonColorV2()
         }
-        lastPLaying = nowPlaying
+        lastPLaying.setNowPlaying(nowPlaying)
     }
 }
 
