@@ -2,10 +2,20 @@ import fs from "fs"
 import { parseFile } from "music-metadata"
 import sharp from "sharp"
 import ColorTheif from "colorthief"
+
+/**
+ * File path of the now playing JSON file (default: "./foo_now_playing.json").
+ */
 const PATH = "./foo_now_playing.json";
 
+/**
+ * File path of the output image file (default: "./cover.png").
+ */
 const OUTPUT_PATH = "./cover.png";
 
+/**
+ * Command Line Syntax for colors
+ */
 const COLORS = {
     Green:  "\x1b[32m",
     Black: "\x1b[30m",
@@ -18,21 +28,16 @@ const COLORS = {
     White: "\x1b[37m",
     Gray: "\x1b[90m"
 }
-var lastPLaying = {
-        playing: 0,
-        paused: 0,
-        albumartist: "",
-        album: "",
-        artist: "",
-        title: "",
-        tracknumber: 0,
-        length: 0,
-        elapsed: 0,
-        path: ""
-    }
 
+/**
+ * Duration in miliseconds to wait after an error occurs
+ */
 const exitTime = 3000;
-var nowPlaying = {
+
+/**
+ * Object of the last playing track
+ */
+var lastPLaying =  {
         playing: 0,
         paused: 0,
         albumartist: "",
@@ -44,15 +49,40 @@ var nowPlaying = {
         elapsed: 0,
         path: ""
     }
+/**
+ * Object of the current playing track
+ */
+var nowPlaying =  {
+        playing: 0,
+        paused: 0,
+        albumartist: "",
+        album: "",
+        artist: "",
+        title: "",
+        tracknumber: 0,
+        length: 0,
+        elapsed: 0,
+        path: ""
+    }
+/**
+ * Wait for a specified amount of time.
+ * @param {Number} ms - Miliseconds to wait
+ * @returns {Promise<void>}
+ */
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * Update the now playing based on the JSON file.
+ * @returns {Promise<?Error>} - If there is an error return it, else return null;
+ */
 async function updateNowPlaying(){
     try {
         const data = await fs.promises.readFile(PATH, 'utf8');
         var rawData = JSON.parse(data.replace(/^\uFEFF/, ''));
         nowPlaying = rawData.nowplaying;
+        return null;
     } catch (err) {
         nowPlaying = null;
         return err;
@@ -60,6 +90,14 @@ async function updateNowPlaying(){
 }
 
 
+/**
+ * Using the data from the pased audio file, save the cover to the specified path.
+ * @param {*} parsedAudioFile - The parsed audio file, there is not an 
+ * @returns {Promise<Void>} - Promise of when the cover is saved
+ * @see {@link OUTPUT_PATH} - Path for the output image file
+ * @see {@link https://www.npmjs.com/package/music-metadata} - Library used to parse audio files
+ * @see {@link https://www.npmjs.com/package/sharp} - Library used to convert the file type
+ */
 async function saveCover(parsedAudioFile){
     var format = (parsedAudioFile.common.picture[0].format).replace("image/", "")
     if(format != "png"){
@@ -72,7 +110,12 @@ async function saveCover(parsedAudioFile){
         console.log(COLORS.Green+"Image file has been saved");
     });
 }
-
+/**
+ * Get the common color from the saved image file
+ * @returns {Promise<Void>} - Promise of when the color is read and saved
+ * @see {@link OUTPUT_PATH} - Path for the output image file
+ * @see {@link https://www.npmjs.com/package/colorthief} - Library used to get the color from the image file
+ */
 async function getCommonColorV2(){
     let color;
     await sleep(250);
@@ -89,6 +132,7 @@ async function getCommonColorV2(){
         b: color[2]
     }
     console.log(rgb)
+    // TODO: Change to async method
     fs.writeFile("./color.json", JSON.stringify(rgb), function (err) {
         if (err) {
             return console.log(err);
@@ -96,6 +140,17 @@ async function getCommonColorV2(){
         console.log(COLORS.Green + "Color JSON has been saved")
     });
 }
+/**
+ * Main loop for the application
+ * - Handles the logic for when the now playing JSON file is updated
+ * - Exists under the following conditions
+ * - The JSON file is not found
+ * - The JSON file is not valid JSON
+ * @see {@link updateNowPlaying} - update the now player object
+ * @see {@link sleep} - Sleep for a specific amount of time
+ * @see {@link getCommonColorV2} - Get the common color from the saved image file
+ * @see {@link https://www.npmjs.com/package/music-metadata} - Library used to parse audio files
+*/
 async function main() {
     if(!fs.existsSync(PATH)){
         console.log(COLORS.Red+"No JSON file found")
