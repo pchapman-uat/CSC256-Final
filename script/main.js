@@ -1,3 +1,5 @@
+import NowPlaying from "../classes/NowPlaying.js";
+
 class RGB {
     constructor(r, g, b) {
         this.r = r;
@@ -31,35 +33,13 @@ class RGB {
         return `radial-gradient(${this.getRGBA(0.5)}, ${color2.getRGBA(0.5)})`;
     }
 }
-class NowPlaying {
+class NowPlaying2 extends NowPlaying {
 
     rgb = new RGB(0, 0, 0);
     
     
     jsonPath = "foo_now_playing.json"
-    setNowPlaying(data) {
-        if(data == null) return;
-        this.playing = data.playing;
-        this.paused = data.paused;
-        this.albumArtist = data.albumartist;
-        this.album = data.album;
-        this.artist = data.artist;
-        this.title = data.title;
-        this.trackNumber = data.tracknumber;
-        this.length = data.length;
-        this.elapsed = data.elapsed;
-        this.path = data.path;
-    }
-
-    async fetchJSON(path){
-        let response = await fetch(path);
-        try{
-            return await response.json();
-        }catch(e){
-            console.log(e);
-            return null;
-        }
-    }
+    
     async setRGB(){
         let json = await this.fetchJSON("color.json");
         this.rgb = new RGB(json.r, json.g, json.b);
@@ -142,7 +122,7 @@ var outline;
 
 
 
-var nowPlaying = new NowPlaying();
+var nowPlaying = new NowPlaying2();
 document.addEventListener('DOMContentLoaded', async function() {
     outline = new Outline();
     outline.setOutline()

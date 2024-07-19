@@ -1,4 +1,3 @@
-import fs from "fs"
 export default class NowPlaying {
     /**
      * Indicates if the track is current loaded. 1 if loaded, 0 if not.
@@ -68,19 +67,13 @@ export default class NowPlaying {
         this.path = data.path;
     }
 
-    /**
-     * 
-     * @param {String} path - File path string for the JSON file, can be a realitive path
-     * @returns {Promise<?Error>} - Promise of the JSON data, or null if there is an error.
-     */
-    async updateFromJSON(path){
-        try {
-            const data = await fs.promises.readFile(path, 'utf8');
-            var rawData = JSON.parse(data.replace(/^\uFEFF/, ''));
-            this.setNowPlaying(rawData.nowplaying);
+    async fetchJSON(path){
+        let response = await fetch(path);
+        try{
+            return await response.json();
+        }catch(e){
+            console.log(e);
             return null;
-        } catch (err) {
-            return err;
         }
     }
 }

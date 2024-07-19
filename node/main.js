@@ -2,7 +2,7 @@ import fs from "fs"
 import { parseFile } from "music-metadata"
 import sharp from "sharp"
 import ColorTheif from "colorthief"
-import NowPlaying from "../classes/NowPlaying.js";
+import NowPlaying from "../classes/NowPlayingFS.js";
 
 /**
  * File path of the now playing JSON file (default: "./foo_now_playing.json").
