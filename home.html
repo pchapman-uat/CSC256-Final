@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 </head>
 <body>
     <header>
@@ -33,7 +35,7 @@
             <div>
                 <h3>Foobar2000</h3>
                 <p>Head to Foobar2000's website here: <a target="_blank" href="https://www.foobar2000.org/download">https://www.foobar2000.org/download</a></p>
-                <p>Download the newist x64 version</p>
+                <p>Download the newist <b>x32</b> version</p>
                 <p>Install the application as portable</p>
                 <!-- TODO: Add alt text for image -->
                 <img src="./assets/setup/foobar_portable.png">
@@ -52,7 +54,45 @@
                 <p>Navigate to the components folder, and move the "foo_np_simple.dll" to this folder</p>
                 <img src="./assets/component/components_folder.png">
             </div>
+            <div>
+                <h3>Now Playing Simple</h3>
+                <p>Open the Foobar2000 application</p>
+                <p>Go to File, then Preference (ctrl+p)</p>
+                <p>Go to Tools, Now Playing Simple</p>
+                <p>Check Save to File</p>
+                <p>Set the file path to the root of the project (same location as the HTML documents) with the file name of "foo_now_playing.json"</p>
+                <p>Set the following information</p>
+                <ul>
+                    <li>Encoding: UTF-8 with Header</li>
+                    <li>Log mode: false</li>
+                    <li>Delay for (ms): false</li>
+                    <li>Copy to clipboard: false</li>
+                </ul>
+                <p>Set the formated string to the following:</p>
+                <pre>
+                    <code id="jsonContainer">
+{
+    "nowplaying": {
+        "playing": $replace(%isplaying%,'?','0'),
+        "paused": $replace(%ispaused%,'?','0'),
+        "albumartist": "$replace(%album artist%,'"','\"','\','\\')",
+        "album": "$replace(%album%,'"','\"','\','\\')",
+        "artist": "$replace(%artist%,'"','\"','\','\\')",
+        "title": "$replace(%title%,'"','\"','\','\\')",
+        "tracknumber": $add($replace(%track number%,'?','0'),0),
+        "length": $replace(%length_seconds%,'?','0'),
+        "elapsed": $replace(%playback_time_seconds%,'?','0'),
+        "path": "$replace(%path%,'"','\"','\','\\')"
+    }
+}
+                    </code>
+                </pre>
+                <p>Set the </p>
+            </div>
         </section>
     </main>
 </body>
+<script>
+    hljs.highlightBlock(document.getElementById('jsonContainer'));
+</script>
 </html>
