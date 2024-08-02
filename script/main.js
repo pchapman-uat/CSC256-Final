@@ -34,6 +34,7 @@ class RGB {
     }
 }
 class NowPlaying2 extends NowPlaying {
+    previousTitle = "";
 
     rgb = new RGB(0, 0, 0);
     
@@ -53,14 +54,33 @@ class NowPlaying2 extends NowPlaying {
     async updateNowPlaying(){
         await this.fetchNowPlaying();
         await this.setRGB();
+        outline.progress.style.width = this.elapsed / this.length * 100 + "%";
+        outline.values.checkForScroll();
+        if(this.title == this.previousTitle) {
+            console.log("Same Song")
+            return;   
+        }
+
+        console.log(this.previousTitle);
+
+        let animationMS = 750;
+        let animationSecs = animationMS / 1000;
+        if(this.previousTitle != ""){
+            outline.container.style.animation = `fadeOut ${animationSecs}s`;
+            await wait(animationMS);
+            console.log("done fadeOut");
+        }
         outline.values.title.innerHTML = this.title;
         outline.values.artist.innerHTML = this.artist;
         outline.values.album.innerHTML = this.album;
         outline.cover.src = "cover.png?"+this.elapsed;
-        outline.progress.style.width = this.elapsed / this.length * 100 + "%";
         outline.container.style.backgroundImage = this.rgb.radialGradient;
         outline.progress.style.backgroundColor = this.rgb.inverse().getRGB();
-        outline.values.checkForScroll();
+        outline.container.style.animation = `fadeIn ${animationSecs}s`;
+        this.previousTitle = this.title;
+        await wait(animationMS);
+        outline.container.style.animation = "none";
+        console.log("done fadeIn");
     }
 }
 
@@ -92,17 +112,30 @@ class Values {
 /**
  * @typedef {Object} Outline
  * @property {Object} values - An object containing elements for various track details.
- * @property {HTMLElement} values.title - The HTML element for the track title.
- * @property {HTMLElement} values.artist - The HTML element for the track artist.
- * @property {HTMLElement} values.album - The HTML element for the track album.
  * @property {HTMLImageElement} cover - The HTML image element for the album cover.
  * @property {HTMLElement} progress - The HTML element for the progress bar.
  * @property {HTMLElement} container - The HTML element for the progress bar.
  */
-/**
- * @type {Outline}
- */
 class Outline {
+    /**
+     * @type {Values} - An object containing elements for various track details.
+     */
+    values;
+    
+    /**
+     * @type {HTMLImageElement}  - The HTML image element for the album cover.
+     */
+    cover;
+
+    /**
+     * @type {HTMLElement}  - The HTML element for the progress bar.
+     */
+    progress;
+
+    /**
+     * @type {HTMLElement}  - The HTML element for the container.
+     */
+    container;
     setOutline(){
         this.values = new Values();
         this.values.setValues();
