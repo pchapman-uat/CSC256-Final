@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Now Playing</title>
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/wave.css">
     <script type="module" src="script/main.js"></script>
 </head>
 <body>
@@ -22,7 +23,13 @@
         </div>
 
         <div class="progressBar">
-            <div id="progress"></div>
+            <div id="progress">
+                <div class="waveContainer" hidden>
+                    <div class="box">
+                        <div class="box-inner"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
