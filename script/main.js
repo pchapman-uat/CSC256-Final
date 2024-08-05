@@ -92,17 +92,17 @@ class Values {
         this.album = document.getElementById('album');
     }
     checkForScroll(){
-        if(this.title.offsetWidth > this.title.parentElement.offsetWidth){
+        if(this.title.scrollWidth > this.title.parentElement.clientWidth){
             this.title.classList.add('scroll');
         } else {
             this.title.classList.remove('scroll');
         }
-        if(this.artist.offsetWidth > this.artist.parentElement.offsetWidth){
+        if(this.artist.scrollWidth > this.artist.parentElement.clientWidth){
             this.artist.classList.add('scroll');
         } else {
             this.artist.classList.remove('scroll');
         }
-        if(this.album.offsetWidth > this.album.parentElement.offsetWidth){
+        if(this.album.scrollWidth > this.album.parentElement.clientWidth){
             this.album.classList.add('scroll');
         } else {
             this.album.classList.remove('scroll');

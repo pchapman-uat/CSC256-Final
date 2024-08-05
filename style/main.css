@@ -50,6 +50,7 @@ body {
 .data > p {
     width:fit-content;
     text-wrap: nowrap;
+    white-space: nowrap; 
     text-shadow: 1px 1px rgba(0,0,0,0.1);
 }
 
@@ -63,6 +64,10 @@ body {
 
 #album {
     font-size: small;
+}
+
+#album, #artist, #title {
+    text-wrap: nowrap;
 }
 @keyframes scroll {
     0% {
