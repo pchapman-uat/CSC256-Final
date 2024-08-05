@@ -14,9 +14,12 @@ const PATH = "./foo_now_playing.json";
  */
 const OUTPUT_PATH = "./cover.png";
 
+
+const CAN_RUN_PATH = "./node/canRun.txt";
 /**
  * Command Line Syntax for colors
  */
+const TIMESTAMP_PATH = "./node/timestamp.txt";
 const COLORS = {
     Green:  "\x1b[32m",
     Black: "\x1b[30m",
@@ -139,6 +142,15 @@ async function main() {
     while(true){
         await sleep(1000);
         await nowPlaying.updateFromJSON(PATH)
+        let canRun = fs.readFileSync(CAN_RUN_PATH, 'utf8');      
+        if(canRun.includes("false")){
+            console.log(COLORS.Yellow+"Please make sure the file at canRun file is set to true if this was not expected")
+            console.log(COLORS.Red+`Exiting Application in ${exitTime/1000}s`);
+            await sleep(exitTime)
+            fs.writeFileSync(TIMESTAMP_PATH, "", "utf-8")
+            process.exit(1);
+        }
+        fs.writeFileSync(TIMESTAMP_PATH, Date.now().toString(), "utf-8")
         if(nowPlaying.title == lastPLaying.title || nowPlaying.playing == 0){
     
         } else {
