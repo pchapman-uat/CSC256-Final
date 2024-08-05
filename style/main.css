@@ -1,10 +1,13 @@
+:root {
+    --dropShadow: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
+}
 body {
     zoom: 2;
 }
 #cover {
     height: 100px;
     border-radius: 10px;
-    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
+    filter: var(--dropShadow)
 }
 .artText {
     display: flex;
@@ -35,6 +38,9 @@ body {
     padding-right: 10%;
     padding-left: 10%;
     padding-bottom: 10px;
+    filter: var(--dropShadow);
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .data {
     width: 100%;

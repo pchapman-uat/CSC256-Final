@@ -30,7 +30,7 @@ class RGB {
         let color2 = new RGB().clone(this);
         color2.setWithTreshold(25);
 
-        return `radial-gradient(${this.getRGBA(0.5)}, ${color2.getRGBA(0.5)})`;
+        return `radial-gradient(${this.getRGBA(0.75)}, ${color2.getRGBA(0.75)})`;
     }
 }
 class NowPlaying2 extends NowPlaying {
