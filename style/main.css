@@ -12,6 +12,7 @@ body {
 .artText {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
 }
 .coverContainer {
     display: flex;
