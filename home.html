@@ -16,9 +16,19 @@
     </header>
     <nav>
         <a href="NP.html">Now Playing Page</a>
+        <div class="toc">
+            <a href="#about">About</a>
+            <a>Set Up</a>
+            <div class="toc_setup">
+                <a href="#foobar2000">Foobar2000</a>
+                <a href="#obs">OBS</a>
+                <a href="#components">Componets</a>
+                <a href="#npSimple">Now Playing Simple</a>
+            </div>
+        </div>
     </nav>
     <main>
-        <section>
+        <section id="about">
             <h2>About</h2>
             <p>This project is to allow for users to be able to display the current song that is playing in <a target="_blank" href="https://www.foobar2000.org/">Foobar2000</a>.</p>
             <p>The following information will be displayed and will be updated every second</p>
@@ -28,24 +38,29 @@
                 <li>Artist</li>
                 <li>Elapsed Time</li>
                 <li>Remaing Time</li>
-                <li>Album Art</li>
+                <li>Album Art*</li>
             </ul>
+            <!-- TODO: Update information when exe is working -->
+            * Album art requires node.exe (WIP)
         </section>
-        <section>
+        <section id="setup">
             <h2>Set Up</h2>
             <div>
-                <h3>Foobar2000</h3>
-                <p>Head to Foobar2000's website here: <a target="_blank" href="https://www.foobar2000.org/download">https://www.foobar2000.org/download</a></p>
-                <p>Download the newist <b>x32</b> version</p>
-                <p>Install the application as portable</p>
-                <!-- TODO: Add alt text for image -->
-                <img src="./assets/setup/foobar_portable.png">
-                <p>Installation does not matter</p>
-                <p>Full installation for components are recomended, but none needed for this project</p>
-                <!-- TODO: Add alt text for image -->
-                <img src="./assets/setup/default_components.png">
-                <p>Once Installed run Foobar2000</p>
-                <div>
+                <div id="foobar2000">
+                    <h3>Foobar2000</h3>
+                    <p>Head to Foobar2000's website here: <a target="_blank" href="https://www.foobar2000.org/download">https://www.foobar2000.org/download</a></p>
+                    <p>Download the newist <b>x32</b> version</p>
+                    <p>Install the application as portable</p>
+                    <!-- TODO: Add alt text for image -->
+                    <img src="./assets/setup/foobar_portable.png">
+                    <p>Installation does not matter</p>
+                    <p>Full installation for components are recomended, but none needed for this project</p>
+                    <!-- TODO: Add alt text for image -->
+                    <img src="./assets/setup/default_components.png">
+                    <p>Once Installed run Foobar2000</p>
+                </div>
+               
+                <div id="obs">
                     <h3>OBS Setup</h3>
                     <!-- TODO: Add screenshots of the release -->
                         <p>Select the newest release on <a href="https://github.com/pchapman-uat/CSC256-Final/releases">GitHub</a></p>
@@ -76,7 +91,7 @@
                         <im></im>
                 </div>
             </div>
-            <div>
+            <div id="components">
                 <h3>Components</h3>
                 <p>Download the component in this project <a href="./foo_component/foo_np_simple.dll">here</a>.</p>
                 <p>WARNING: This is a raw .dll file, meaning windows will flag this, at the moment this component has been archived, when a new version is posted this will be updated.</p>
@@ -85,7 +100,7 @@
                 <p>Navigate to the components folder, and move the "foo_np_simple.dll" to this folder</p>
                 <img src="./assets/component/components_folder.png">
             </div>
-            <div>
+            <div id="npSimple">
                 <h3>Now Playing Simple</h3>
                 <p>Open the Foobar2000 application</p>
                 <p>Go to File, then Preference (ctrl+p)</p>

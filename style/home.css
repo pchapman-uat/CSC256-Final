@@ -6,3 +6,18 @@ header {
     flex-direction: column;
     text-align: center;
 }
+nav {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+.toc {
+    display: flex;
+    flex-direction: column;
+}
+.toc_setup {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50%;
+    text-align: left;
+}
