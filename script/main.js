@@ -58,6 +58,7 @@ class NowPlaying2 extends NowPlaying {
         outline.values.checkForScroll();
         outline.container.style.backgroundImage = this.rgb.radialGradient;
         outline.progress.style.backgroundColor = this.rgb.inverse().getRGB();
+        outline.cover.src = "cover.png?"+this.elapsed;
         if(this.title == this.previousTitle) {
             console.log("Same Song")
             return;
@@ -75,7 +76,6 @@ class NowPlaying2 extends NowPlaying {
         outline.values.title.innerHTML = this.title;
         outline.values.artist.innerHTML = this.artist;
         outline.values.album.innerHTML = this.album;
-        outline.cover.src = "cover.png?"+this.elapsed;
         outline.container.style.animation = `fadeIn ${animationSecs}s`;
         this.previousTitle = this.title;
         await wait(animationMS);
