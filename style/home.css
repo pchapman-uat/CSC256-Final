@@ -43,3 +43,12 @@ nav {
     margin-top: var(--margin_tb);
     margin-bottom: var(--margin_tb);
 }
+
+.npButton {
+   width: 25%;
+   height: 40px;
+   border-radius: 50px;
+}
+.npButton:hover {
+    cursor: pointer;
+}
