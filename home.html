@@ -21,6 +21,7 @@
         
         <div class="toc">
             <a href="#about">About</a>
+            <a href="#quickSetup">Quick Setup</a>
             <a href="#setup">Set Up</a>
             <div class="toc_setup">
                 <a href="#foobar2000">Foobar2000</a>
@@ -47,7 +48,39 @@
             * Album art requires node.exe (WIP)
         </section>
         <div class="seperator"></div>
-        <section id="setup">
+        <section id="quickSetup">
+            <h2>Quick Setup</h2>
+            <p>This is a quick setup for the application, if you would like to learn more about the setup or need more information, please continue to the next section</p>
+            <ol>
+                <li>Download the <a href="./foo_component/foo_np_simple.dll">component</a></li>
+                <li>Navigate to your <b>x86</b> Foobar2000 <b>portable</b> installation folder</li>
+                <li>Copy the <b>foo_np_simple.dll</b> to the <b>components</b> folder</li>
+                <li>Open Foobar2000 and navigate to <b>Tools > Preferences</b></li>
+                <li>Navigate to the <b>Tools</b> tab</li>
+                <li>Navigate to the Now Playing Simple tab</li>
+                <li>Set the file path to a json file called '<b>foo_now_playing.json</b></li>
+                <li>Set the formated string to:</li>
+                <pre>
+                    <code id="jsonContainer">
+{
+    "nowplaying": {
+        "playing": $replace(%isplaying%,'?','0'),
+        "paused": $replace(%ispaused%,'?','0'),
+        "albumartist": "$replace(%album artist%,'"','\"','\','\\')",
+        "album": "$replace(%album%,'"','\"','\','\\')",
+        "artist": "$replace(%artist%,'"','\"','\','\\')",
+        "title": "$replace(%title%,'"','\"','\','\\')",
+        "tracknumber": $add($replace(%track number%,'?','0'),0),
+        "length": $replace(%length_seconds%,'?','0'),
+        "elapsed": $replace(%playback_time_seconds%,'?','0'),
+        "path": "$replace(%path%,'"','\"','\','\\')"
+    }
+}
+                    </code>
+                </pre>
+            </ol>
+        </section>
+            <section id="setup">
             <h2>Set Up</h2>
             <div>
                 <div id="foobar2000">
