@@ -4,6 +4,7 @@
 
 body {
     background-image: linear-gradient(hsl(288, 28%, 44%),hsl(300, 38%, 23%));
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 header {
     display: flex;
@@ -48,7 +49,12 @@ nav {
    width: 25%;
    height: 40px;
    border-radius: 50px;
+   background-position: center;
+}
+.npButton {
+    background-image: linear-gradient(hsl(288, 28%, 44%), hsl(300, 38%, 23%));
 }
 .npButton:hover {
     cursor: pointer;
+    background-image: linear-gradient(hsl(130, 28%, 44%), hsl(109, 38%, 23%));
 }
