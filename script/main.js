@@ -59,6 +59,8 @@ class NowPlaying2 extends NowPlaying {
         outline.container.style.backgroundImage = this.rgb.radialGradient;
         outline.progress.style.backgroundColor = this.rgb.inverse().getRGB();
         outline.cover.src = "cover.png?"+this.elapsed;
+        outline.values.elapsed.innerHTML = this.formatTime(this.elapsed);
+        outline.values.remaining.innerHTML = this.formatTime(this.length-this.elapsed);
         if(this.title == this.previousTitle) {
             console.log("Same Song")
             return;
@@ -82,6 +84,11 @@ class NowPlaying2 extends NowPlaying {
         outline.container.style.animation = "none";
         console.log("done fadeIn");
     }
+    formatTime(timeInt){
+        let minutes = Math.floor(timeInt / 60);
+        let seconds = Math.floor(timeInt % 60);
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
 }
 
 
@@ -90,6 +97,9 @@ class Values {
         this.title = document.getElementById('title');
         this.artist = document.getElementById('artist');
         this.album = document.getElementById('album');
+        this.elapsed = document.getElementById('elapsed');
+        this.remaining = document.getElementById('remaining');
+        
     }
     checkForScroll(){
         if(this.title.scrollWidth > this.title.parentElement.clientWidth){
@@ -148,11 +158,6 @@ class Outline {
  * @type {Outline}
  */
 var outline;
-
-/**
- * @type {NowPlaying}
- */
-
 
 
 var nowPlaying = new NowPlaying2();
