@@ -68,3 +68,16 @@ nav {
 h2, h3 {
     text-align: center;
 }
+#jsonContainer, #jsonContainer2 {
+    background-color: #555;
+    padding: 20px;
+}
+.hljs-string {
+    color: orange
+}
+.perl {
+    color: #FFF;
+}
+.hljs-number {  
+    color: #02ab02;
+}

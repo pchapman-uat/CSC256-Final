@@ -54,11 +54,11 @@
             <ol>
                 <li>Download the <a href="./foo_component/foo_np_simple.dll">component</a></li>
                 <li>Navigate to your <b>x86</b> Foobar2000 <b>portable</b> installation folder</li>
-                <li>Copy the <b>foo_np_simple.dll</b> to the <b>components</b> folder</li>
+                <li>Copy the     `<b>foo_np_simple.dll</b>` to the <b>components</b> folder</li>
                 <li>Open Foobar2000 and navigate to <b>Tools > Preferences</b></li>
                 <li>Navigate to the <b>Tools</b> tab</li>
                 <li>Navigate to the Now Playing Simple tab</li>
-                <li>Set the file path to a json file called '<b>foo_now_playing.json</b></li>
+                <li>Set the file path to a json file called `<b>foo_now_playing.json</b>`</li>
                 <li>Set the formated string to:</li>
                 <pre>
                     <code id="jsonContainer">
@@ -155,7 +155,7 @@
                 </ul>
                 <p>Set the formated string to the following:</p>
                 <pre>
-                    <code id="jsonContainer">
+                    <code id="jsonContainer2">
 {
     "nowplaying": {
         "playing": $replace(%isplaying%,'?','0'),
@@ -179,5 +179,6 @@
 </body>
 <script>
     hljs.highlightBlock(document.getElementById('jsonContainer'));
+    hljs.highlightBlock(document.getElementById('jsonContainer2'));
 </script>
 </html>
