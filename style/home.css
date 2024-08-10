@@ -16,11 +16,17 @@ nav {
     text-align: center;
     flex-direction: column;
 }
+
 .toc {
     display: flex;
     flex-direction: column;
     margin: 25px;
 }
+
+.toc > *, .toc_setup > * {
+    margin: 5px
+}
+
 .toc_setup {
     display: flex;
     flex-direction: column;
