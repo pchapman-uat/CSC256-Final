@@ -1,7 +1,28 @@
 # OBS FoobarFusion
 
-## Setup
+## Assignment 13.1: Final Project Code Deliverable
+This project allows users to have a local webpage that displays the current song playing in Foobar2000. This is done by using the Foobar2000 API and the [Foobar2000 Component](./foo_component/readme.md)\
+Currently the component has been deprecated, however it is still functional.\
+An alternative is planned to be created at a later date.
+### Screenshots
 
+HTML Document
+![](./readme_imgs/np_01.webp)
+Foobar2000 + Geogia Reborn
+![](./readme_imgs/foo_01.webp)
+HTML Document
+![](./readme_imgs/np_02.webp)
+Foobar2000 + Geogia Reborn
+![](./readme_imgs/foo_02.webp)
+HTML Document
+![](./readme_imgs/np_03.webp)
+HTML Document
+![](./readme_imgs/np_04.webp)
+
+
+## Setup
+For an indepth guide please visit the home.html document 
+<!-- TODO: Add a link to the guide -->
 ### Foobar
 
 #### Install Application
