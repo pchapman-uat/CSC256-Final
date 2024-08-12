@@ -1,8 +1,9 @@
 # OBS FoobarFusion
-
+In this release you will see two files, the DLL is the foobar component, and the zip contains only what is needed to display the project in OBS.
+To preview what the website would look like, please navigate [here](https://pchapman-uat.github.io/CSC256-Final/NP.html)
 ## Assignment 13.1: Final Project Code Deliverable
 This project allows users to have a local webpage that displays the current song playing in Foobar2000. This is done by using the Foobar2000 API and the [Foobar2000 Component](./foo_component/readme.md)\
-Currently the component has been deprecated, however it is still functional.\
+Currently, the component has been deprecated, however it is still functional.\
 An alternative is planned to be created at a later date.
 ### Screenshots
 
@@ -21,20 +22,19 @@ HTML Document
 
 
 ## Setup
-For an indepth guide please visit the home.html document 
-<!-- TODO: Add a link to the guide -->
+For an in-depth guide please visit the [home.html document ](https://pchapman-uat.github.io/CSC256-Final/home.html)
 ### Foobar
 
 #### Install Application
 1. Go to the [Foobar2000 website](https://www.foobar2000.org)
 2. Go to download
-3. Download windows x64 or x86
-4. Follow instillation wizzard
+3. Download Windows x64 or x86
+4. Follow the instillation wizard
 5. **Install as portable**
 
 #### Install component
 1. Download the component [here](./foo_component/readme.md)
-2. Open the foobar portable instilation folder
+2. Open the foobar portable installation folder
 3. Save the file in `foobar2000\components`
 4. Restart Foobar2000
 
@@ -51,8 +51,8 @@ For an indepth guide please visit the home.html document
 2. Go to preferences (ctrl+P)
 3. Go to tools
 4. Go to Now Playing Simple
-5. Click the "..." to open file explorer for the path of the json file
-6. Select the json file (if there is not one, name it `foo_now_playing.json`)
+5. Click the "..." to open File Explorer for the path of the JSON file
+6. Select the JSON file (if there is not one, name it `foo_now_playing.json`)
 7. Click events
 8. Check all events
 9. Input the following formatting string:
